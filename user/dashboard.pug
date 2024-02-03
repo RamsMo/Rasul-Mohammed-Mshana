@@ -1,0 +1,84 @@
+doctype html
+head
+  title ONSS || Dashboard
+  // Google Web Fonts
+  link(rel='preconnect' href='https://fonts.googleapis.com')
+  link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+  link(href='https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap' rel='stylesheet')
+  // Icon Font Stylesheet
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css' rel='stylesheet')
+  link(href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css' rel='stylesheet')
+  // Libraries Stylesheet
+  link(href='lib/owlcarousel/assets/owl.carousel.min.css' rel='stylesheet')
+  link(href='lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' rel='stylesheet')
+  // Customized Bootstrap Stylesheet
+  link(href='css/bootstrap.min.css' rel='stylesheet')
+  // Template Stylesheet
+  link(href='css/style.css' rel='stylesheet')
+.container-fluid.position-relative.bg-white.d-flex.p-0
+  // Content Start
+  .content
+    // Recent Sales Start
+    .container-fluid.pt-4.px-4
+      .bg-light.text-center.rounded.p-4
+        .d-flex.align-items-center.justify-content-between.mb-4
+          | prepare($sql);
+          | $query-&gt;bindParam(&apos;:uid&apos;,$uid,PDO::PARAM_STR);
+          | $query-&gt;execute();
+          | $results=$query-&gt;fetchAll(PDO::FETCH_OBJ);
+          | $cnt=1;
+          | if($query-&gt;rowCount() &gt; 0)
+          | {
+          | foreach($results as $row)
+          | {               ?&gt;
+          h1
+            | Hello,
+            | FullName;?&gt; 
+            span   Welcome to your panel
+    // Recent Sales End
+    .container-fluid.pt-4.px-4
+      .row.g-8
+        .col-sm-6.col-xl-4
+          .bg-light.rounded.d-flex.align-items-center.justify-content-between.p-4
+            i.fa.fa-file.fa-6x.text-primary
+            .ms-3
+              p.mb-2 Total Uploaded Subject Notes
+              | prepare($sql1);
+              | $query1-&gt;bindParam(&apos;:uid&apos;,$uid,PDO::PARAM_STR);
+              | $query1-&gt;execute();
+              | $results1=$query1-&gt;fetchAll(PDO::FETCH_OBJ);
+              | $totnotes=$query1-&gt;rowCount();
+              | ?&gt;
+              h4(style='color: blue')
+              a(href='manage-notes.php')
+                h5 View Detail
+        .col-sm-6.col-xl-4
+          .bg-light.rounded.d-flex.align-items-center.justify-content-between.p-4
+            i.fa.fa-file.fa-6x.text-primary
+            .ms-3
+              p.mb-2 Total Uploaded Notes File
+              | prepare($sql1);
+              | $query1-&gt;bindParam(&apos;:uid&apos;,$uid,PDO::PARAM_STR);
+              | $query1-&gt;execute();
+              | $results1=$query1-&gt;fetchAll(PDO::FETCH_OBJ);
+              | foreach($results1 as $rows)
+              | {
+              | $totalfiles=$rows-&gt;file+$rows-&gt;file2+$rows-&gt;file3+$rows-&gt;file4;
+              | }
+              | ?&gt;
+              h4(style='color: blue')
+              a(href='manage-notes.php')
+                h5 View Detail
+  // Content End
+// JavaScript Libraries
+script(src='https://code.jquery.com/jquery-3.4.1.min.js')
+script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js')
+script(src='lib/chart/chart.min.js')
+script(src='lib/easing/easing.min.js')
+script(src='lib/waypoints/waypoints.min.js')
+script(src='lib/owlcarousel/owl.carousel.min.js')
+script(src='lib/tempusdominus/js/moment.min.js')
+script(src='lib/tempusdominus/js/moment-timezone.min.js')
+script(src='lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js')
+// Template Javascript
+script(src='js/main.js')
